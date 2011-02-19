@@ -44,6 +44,11 @@
                     tal:condition="python:description and not hidden"
                     >field description</div>
 
+                  <tal:actions tal:repeat="action python:view.behavior_actions[widget.field.__name__]">
+                    <a tal:attributes="href action/href"
+                       tal:content="action/title" />
+                  </tal:actions>
+
                 </div>
 
             </div>

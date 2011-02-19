@@ -31,3 +31,12 @@ class ITypeSettings(Interface):
         required = True,
         default = False,
         )
+
+class IBehaviorAction(Interface):
+    """A link associated with a particular behavior."""
+    
+    title = schema.TextLine(title = u'Title')
+    href = schema.ASCIILine(title = u'Link')
+
+class IBehaviorActions(Interface):
+    """Adapts a behavior interface and an ITypeSchemaContext into a list of IBehaviorActions."""

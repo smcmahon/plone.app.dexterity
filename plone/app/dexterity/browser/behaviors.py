@@ -1,13 +1,15 @@
+from collections import namedtuple
 from copy import deepcopy
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile as Zope2PageTemplateFile
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
-from zope.component import adapts, getUtilitiesFor
+from zope.component import adapts, getUtilitiesFor, queryMultiAdapter
 from zope import schema
 from z3c.form import field, form
 from z3c.form.browser.checkbox import SingleCheckBoxFieldWidget
 from plone.z3cform.layout import FormWrapper
 from plone.behavior.interfaces import IBehavior
 from plone.app.dexterity.interfaces import ITypeSchemaContext
+from plone.app.dexterity.interfaces import IBehaviorActions
 
 class BehaviorConfigurationAdapter(object):
     adapts(ITypeSchemaContext)
@@ -38,6 +40,7 @@ class BehaviorConfigurationAdapter(object):
         for b in self.fti.behaviors:
             yield b
 
+
 class BehaviorsForm(form.EditForm):
     
     template = ViewPageTemplateFile('behaviors.pt')
@@ -46,6 +49,7 @@ class BehaviorsForm(form.EditForm):
     successMessage = u'Behaviors successfully updated.'
     noChangesMessage = u'No changes were made.'
     buttons = deepcopy(form.EditForm.buttons)
+    behavior_actions = {}
     
     def getContent(self):
         return BehaviorConfigurationAdapter(self.context)
@@ -58,9 +62,10 @@ class BehaviorsForm(form.EditForm):
                 __name__ = str(name),
                 title = reg.title,
                 description = reg.description,
-                required = False
+                required = False,
                 )
             fields.append(f)
+            self.behavior_actions[str(name)] = self.get_behavior_actions(reg.interface)
         fields = sorted(fields, key=lambda x:x.title)
         fields = field.Fields(*fields)
 
@@ -71,6 +76,12 @@ class BehaviorsForm(form.EditForm):
     def update(self):
         self.buttons['apply'].title = u'Save'
         form.EditForm.update(self)
+    
+    def get_behavior_actions(self, behavior_iface):
+        if 'Salesforce' in behavior_iface.__identifier__:
+            import pdb; pdb.set_trace( )
+        return queryMultiAdapter((behavior_iface, self.context), IBehaviorActions, default=[])
+
 
 class BehaviorsFormPage(FormWrapper):
     form = BehaviorsForm
@@ -83,3 +94,5 @@ class BehaviorsFormPage(FormWrapper):
     @property
     def label(self):
         return u'Behaviors for %s (%s)' % (self.context.Title(), self.context.__name__)
+
+BehaviorAction = namedtuple('BehaviorAction', 'title href')

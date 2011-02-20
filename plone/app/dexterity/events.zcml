@@ -15,7 +15,7 @@
         />
     <subscriber
         for="zope.interface.interfaces.IInterface
-             zope.app.container.interfaces.IContainerModifiedEvent"
+             zope.lifecycleevent.interfaces.IObjectModifiedEvent"
         handler=".serialize.serializeSchemaOnSchemaEvent"
         />
 

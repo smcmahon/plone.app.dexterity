@@ -78,8 +78,6 @@ class BehaviorsForm(form.EditForm):
         form.EditForm.update(self)
     
     def get_behavior_actions(self, behavior_iface):
-        if 'Salesforce' in behavior_iface.__identifier__:
-            import pdb; pdb.set_trace( )
         return queryMultiAdapter((behavior_iface, self.context), IBehaviorActions, default=[])
 
 

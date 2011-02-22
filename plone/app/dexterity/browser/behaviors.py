@@ -49,7 +49,7 @@ class BehaviorsForm(form.EditForm):
     successMessage = u'Behaviors successfully updated.'
     noChangesMessage = u'No changes were made.'
     buttons = deepcopy(form.EditForm.buttons)
-    behavior_actions = {}
+    behaviors = {}
     
     def getContent(self):
         return BehaviorConfigurationAdapter(self.context)
@@ -65,7 +65,7 @@ class BehaviorsForm(form.EditForm):
                 required = False,
                 )
             fields.append(f)
-            self.behavior_actions[str(name)] = self.get_behavior_actions(reg.interface)
+            self.behaviors[str(name)] = reg.interface
         fields = sorted(fields, key=lambda x:x.title)
         fields = field.Fields(*fields)
 
@@ -77,8 +77,9 @@ class BehaviorsForm(form.EditForm):
         self.buttons['apply'].title = u'Save'
         form.EditForm.update(self)
     
-    def get_behavior_actions(self, behavior_iface):
-        return queryMultiAdapter((behavior_iface, self.context), IBehaviorActions, default=[])
+    def get_behavior_actions(self, iface_name):
+        iface = self.behaviors[iface_name]
+        return queryMultiAdapter((iface, self.context), IBehaviorActions, default=[])
 
 
 class BehaviorsFormPage(FormWrapper):

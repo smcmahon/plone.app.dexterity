@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      i18n:domain="plone.app.dexterity">
+<body>
+
+<iframe id="preview"></iframe>
+
+<div id="view-editor">
+  <form id="view-editor-form" name="view-editor-form">
+    <h3 class="view-editor-name">
+      Editing view: <span tal:replace="view/view_name|nothing"></span>
+    </h3>
+    <input type="submit" value="Save" />
+    <textarea id="view-editor-text" name="view-editor-text" tal:content="view/template_source|nothing" />
+  </form>
+</div>
+
+</body>
+</html>
+

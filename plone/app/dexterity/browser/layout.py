@@ -14,4 +14,5 @@ class TypeFormLayout(FormWrapper):
             (_('Overview'), '@@overview'),
             (_('Fields'), '@@fields'),
             (_('Behaviors'), '@@behaviors'),
+            (_('Views'), '@@views'),
             )

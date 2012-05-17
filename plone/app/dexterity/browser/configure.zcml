@@ -74,6 +74,27 @@
         permission="plone.schemaeditor.ManageSchemata" />
 
     <browser:page
+        name="views"
+        for="plone.app.dexterity.interfaces.ITypeSchemaContext"
+        class=".views.TypeViewsPage"
+        permission="plone.schemaeditor.ManageSchemata" />
+
+    <browser:page
+        name="edit-view"
+        for="plone.app.dexterity.interfaces.ITypeSchemaContext"
+        class=".view_editor.ViewEditorView"
+        template="view_editor.pt"
+        permission="plone.schemaeditor.ManageSchemata"
+        />
+
+    <browser:page
+        name="preview-view"
+        for="plone.app.dexterity.interfaces.ITypeSchemaContext"
+        class=".view_editor.ViewEditorPreview"
+        permission="plone.schemaeditor.ManageSchemata"
+        />
+
+    <browser:page
         name="clone"
         for="plone.app.dexterity.interfaces.ITypeSchemaContext"
         class=".clone_type.TypeCloneFormPage"
@@ -92,5 +113,9 @@
         class=".export.ModelsExport"
         permission="plone.schemaeditor.ManageSchemata"
         />
+
+    <class class="zope.component.registry.AdapterRegistration">
+        <implements interface=".views.IViewRegistration" />
+    </class>
 
 </configure>

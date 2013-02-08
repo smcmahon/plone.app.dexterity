@@ -74,6 +74,9 @@ setup(name='plone.app.dexterity',
               'plone.app.relationfield',
               'plone.app.intid',
               'z3c.relationfield',
+              ],
+          'export': [
+              'templer.dexterity',
               ]
       },
       entry_points="""

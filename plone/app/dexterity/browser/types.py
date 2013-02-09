@@ -78,6 +78,18 @@ class TypeEditForm(crud.EditForm):
                  urllib.quote(selected))
             self.request.response.redirect(url)
 
+    @button.buttonAndHandler(_(u'Export full egg'))
+    def handleExportEgg(self, action):
+        selected = ",".join([items[0] for items in self.selected_items()])
+
+        if len(selected) == 0:
+            self.status = _(u'Please select types to include in your package.')
+        elif len(selected) > 0:
+            url = '%s/@@full-egg-export?selected=%s' % \
+                (self.context.context.absolute_url(),
+                 urllib.quote(selected))
+            self.request.response.redirect(url)
+
 class TypesEditFormWrapper(FormWrapper):
     """ Render Plone frame around our form with little modifications """
 

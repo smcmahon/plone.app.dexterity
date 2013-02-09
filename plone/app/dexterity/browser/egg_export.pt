@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="context/@@ploneform-macros/titlelessform"
+      xml:lang="en" lang="en"
+      i18n:domain="plone.app.dexterity">
+<body>
+<metal:slot fill-slot="fields">
+  <div id="items-model-schema">
+    <div tal:repeat="schema view/get_schema_models">
+      <strong tal:content="string:${schema/ct_name} XML Schema: "/>
+      <pre tal:content="schema/xml_model"/>
+    </div> 
+  </div>
+
+  <input type="hidden" id="form.selected" name="form.selected"
+      tal:attributes="value request/selected|nothing" />
+
+</metal:slot>
+
+</body>
+</html>

@@ -93,4 +93,13 @@
         permission="plone.schemaeditor.ManageSchemata"
         />
 
+    <configure
+        zcml:condition="installed templer.dexterity">
+        <browser:page
+            name="full-egg-export"
+            for="plone.app.dexterity.interfaces.ITypesContext"
+            class=".egg_export.FullEggExportFormPage"
+            permission="plone.schemaeditor.ManageSchemata" />
+    </configure>
+
 </configure>

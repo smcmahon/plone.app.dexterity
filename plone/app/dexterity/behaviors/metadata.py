@@ -2,7 +2,6 @@ from AccessControl.SecurityManagement import getSecurityManager
 from DateTime import DateTime
 from datetime import datetime
 from z3c.form.interfaces import IEditForm, IAddForm
-from z3c.form.browser.textlines import TextLinesFieldWidget
 from z3c.form.widget import ComputedWidgetAttribute
 from zope.interface import provider
 from zope.interface import alsoProvides
@@ -99,7 +98,7 @@ class ICategorization(model.Schema):
         required=False,
         missing_value=(),
     )
-    form.widget(subjects=TextLinesFieldWidget)
+    form.widget('subjects', tags='plone.app.vocabularies.Keywords')
 
     language = schema.Choice(
         title=_PMF(u'label_language', default=u'Language'),
@@ -169,7 +168,7 @@ class IOwnership(model.Schema):
         required=False,
         missing_value=(),
     )
-    form.widget(creators=TextLinesFieldWidget)
+    form.widget('creators', ajaxtags='plone.app.vocabularies.Users')
 
     contributors = schema.Tuple(
         title=_PMF(u'label_contributors', u'Contributors'),
@@ -182,7 +181,7 @@ class IOwnership(model.Schema):
         required=False,
         missing_value=(),
     )
-    form.widget(contributors=TextLinesFieldWidget)
+    form.widget('contributors', ajaxtags='plone.app.vocabularies.Users')
 
     rights = schema.Text(
         title=_PMF(u'label_copyrights', default=u'Rights'),

@@ -31,12 +31,13 @@ or::
 
     IExampleType = xmlSchema("models/example_type.xml")
 
-XML models in a package may be directly edited. (Dexterity will probably also
-include a TTW XML-model editor at some point in the future.)
+XML models in a package may be directly edited. 
+For Dexterity types built through the web, you may edit the XML via the "Edit XML Field Model" button at the bottom of the "Fields" tab.
+If you use the TTW XML field editor, it will do basic XML syntax checking and make sure that any Python components referenced actually exist.
 
 This document is a reference to the tags and attributes you may use in model
 XML files. This includes several form-control and security-control attributes
-that are not available through the TTW schema editor.
+that are not available through the TTW schema editor (but may be used via the XML field editor).
 
 XML Document Structure
 ----------------------
